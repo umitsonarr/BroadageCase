@@ -1,0 +1,37 @@
+﻿@model List<DataAccess.Entity.Score>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Turnuva</th>
+                <th>Sezon</th>
+                <th>Round</th>
+                <th>Tarih</th>
+                <th>Dakika</th>
+                <th>Ev Sahibi</th>
+                <th>Deplasman</th>
+                <th>İlk Yarı Sonucu</th>
+                <th>Skor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Tournament?.Name</td>
+                    <td>@item.Stage?.Name</td>
+                    <td>@item.Round?.Name</td>
+                    <td>@item.Date</td>
+                    <td>@(item.Status.ShortName == "FT" ? item.Status.Name : item.Status.ShortName == "SCH" ? item.Status.Name : item.Minute.CurrentMinute)</td>
+                    <td>@item.HomeTeamGoal?.HomeTeam?.Name</td>
+                    <td>@item.AwayTeamGoal?.AwayTeam?.Name</td>
+                    <td>@item.HomeTeamGoal?.Goal?.HalfTime - @item.AwayTeamGoal?.Goal?.HalfTime</td>
+                    <td>@item.HomeTeamGoal?.Goal?.Current - @item.AwayTeamGoal?.Goal?.Current</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
